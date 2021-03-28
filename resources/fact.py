@@ -1,3 +1,5 @@
+"""This module contains a class Facts which is called with the /facts endpoint."""
+
 from flask_restx import Resource
 from flask import request
 

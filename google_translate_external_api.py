@@ -1,28 +1,22 @@
+"""This module connects to the external API (Google Cloud Translation API) to translate texts."""
+
+from google.cloud import storage
+
 import os
 
 credential_path = "service_account.json"
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credential_path
 
 
-def explicit():
-    from google.cloud import storage
+# Explicitly use service account credentials by specifying the private key file.
+storage_client = storage.Client.from_service_account_json('service_account.json')
 
-    # Explicitly use service account credentials by specifying the private key
-    # file.
-    storage_client = storage.Client.from_service_account_json(
-        'service_account.json')
-
-    # Make an authenticated API request
-    buckets = list(storage_client.list_buckets())
-    # print(buckets)
+# Make an authenticated API request
+buckets = list(storage_client.list_buckets())
 
 
 def translate_text(target, text):
-    """Translates text into the target language.
-
-    Target must be an ISO 639-1 language code.
-    See https://g.co/cloud/translate/v2/translate-reference#supported_languages
-    """
+    """Get response from the Google Cloud Translation API and return a list of translated strings."""
     import six
     from google.cloud import translate_v2 as translate
 
@@ -33,12 +27,10 @@ def translate_text(target, text):
 
     # Text can also be a sequence of strings, in which case this method
     # will return a sequence of results for each text.
+
     result = translate_client.translate(text, target_language=target)
 
-    print(u"Text: {}".format(result["input"]))
-    print(u"Translation: {}".format(result["translatedText"]))
-    print(u"Detected source language: {}".format(result["detectedSourceLanguage"]))
+    translated_list = [i.get("translatedText") for i in result]
 
+    return translated_list
 
-explicit()
-translate_text("pl", "Hello")

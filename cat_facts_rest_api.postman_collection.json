@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "9b102253-c802-4652-895b-ac911e670ad0",
+		"name": "cat_facts_rest_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "facts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/facts?animal=cat&amount=4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"facts"
+					],
+					"query": [
+						{
+							"key": "animal",
+							"value": "cat"
+						},
+						{
+							"key": "amount",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "translate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"target\": \"pl\",\r\n    \"text\": [\r\n        \"Cats make more than 100 different sounds whereas dogs make around 10.\",\r\n        \"Most cats are lactose intolerant, and milk can cause painful stomach cramps and diarrhea. It's best to forego the milk and just give your cat the standard: clean, cool drinking water.\",\r\n        \"When cats grimace, they are usually \\\"taste-scenting.\\\" They have an extra organ that, with some breathing control, allows the cats to taste-sense the air.\",\r\n        \"Cats make more than 100 different sounds whereas dogs make around 10.\"\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/translate",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"translate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
